@@ -186,7 +186,7 @@ for id in $(echo "$veeamJobsUrl" | jq -r '.[].id'); do
     idJob=$(echo "$veeamJobsUrl" | jq --raw-output ".[$arrayJobs].id")
     
     # Backup Job Sessions
-    veeamVBOUrl="$veeamRestServer:$veeamRestPort/v7/Jobs/$idJob/JobSessions"
+    veeamVBOUrl="$veeamRestServer:$veeamRestPort/v7/JobSessions?jobId=$idJob"
     veeamJobSessionsUrl=$(curl -X GET --header "Accept:application/json" --header "Authorization:Bearer $veeamBearer" "$veeamVBOUrl" 2>&1 -k --silent)
     declare -i arrayJobsSessions=0
     for id in $(echo "$veeamJobSessionsUrl" | jq -r '.results[].id'); do
